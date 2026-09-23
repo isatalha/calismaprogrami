@@ -1,0 +1,430 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap');
+
+body {
+    background-color: #141416;
+    color: #cbd5e1;
+    font-family: 'Cinzel', serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.ana-kutu {
+    background-color: #1c1c20;
+    border: 1px solid #2e3440;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    max-width: 800px;
+    width: 90%;
+}
+
+.resim-kutusu {
+    flex: 1;
+    background-color: #141416;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-right: 1px solid #2e3440;
+}
+
+.resim-kutusu img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.form-kutusu {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.form-kutusu h2 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    color: #8899ac;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-kutusu label {
+    font-size: 12px;
+    color: #8899ac;
+    letter-spacing: 1px;
+}
+
+.form-kutusu input {
+    background-color: #141416;
+    border: 1px solid #2e3440;
+    color: #e2e8f0;
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 13px;
+    outline: none;
+    font-family: 'Cinzel', serif;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-kutusu button {
+    background-color: #222a35;
+    color: #8899ac;
+    border: 1px solid #3a4556;
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.form-kutusu button:hover {
+    background-color: #334155;
+    color: #f1f5f9;
+}
+
+.ust-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #141416;
+    border-bottom: 1px solid #2e3440 !important;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.site-baslik {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #8899ac;
+}
+
+.sekme-linkleri {
+    display: flex;
+    gap: 20px;
+}
+
+.sekme-btn {
+    background-color: #141416;
+    color: #8899ac;
+    border: 1px solid #2e3440;
+    padding: 10px 24px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: 'Cinzel', serif;
+    margin-top: 0;
+}
+
+.sekme-btn:hover {
+    background-color: #242429;
+    color: #8899ac;
+    border-color: #3a4556;
+}
+
+.sekme-btn.aktif {
+    background-color: #222a35;
+    color: #8899ac;
+    border-color: #3a4556;
+}
+
+.sayfa-icerik {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+}
+
+.panel-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #141416;
+    color: #cbd5e1;
+    font-family: 'Cinzel', serif;
+    overflow-y: auto;
+}
+
+.hafta-container {
+    flex: 1;
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.hafta-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    row-gap: 35px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.gun-kutusu {
+    background-color: #1c1c20;
+    border: 1px solid #2e3440;
+    border-radius: 6px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 280px;
+    max-width: 350px;
+    height: auto;
+}
+
+.gun-kutusu h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #8899ac;
+    border-bottom: 1px solid #2e3440;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.gorev-ekle-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.gorev-ekle-form input {
+    background-color: #141416;
+    border: 1px solid #2e3440;
+    color: #8899ac;
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 13px;
+    outline: none;
+    font-family: 'Cinzel', serif;
+}
+
+.gorev-ekle-form button {
+    background-color: #222a35;
+    color: #8899ac;
+    border: 1px solid #3a4556;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 0;
+    font-family: 'Cinzel', serif;
+}
+
+.gorev-ekle-form button:hover {
+    background-color: #334155;
+    color: #8899ac;
+}
+
+.gorev-listesi {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+}
+
+.gorev-listesi li {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    background-color: #242429;
+    border: 1px solid #2e3440;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #e2e8f0;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
+}
+
+.gorev-sol {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.gorev-sol input[type="checkbox"] {
+    margin-top: 2px;
+    accent-color: #64748b;
+    flex-shrink: 0;
+}
+
+.gorev-sol span {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    line-height: 1.4;
+    display: inline-block;
+    width: 100%;
+}
+
+.sil-btn {
+    background-color: #2d1a1d;
+    color: #e2b6b6;
+    border: 1px solid #4a282c;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-family: inherit;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: 10px;
+    transition: 0.2s;
+}
+
+.sil-btn:hover {
+    background-color: #4a282c;
+    color: #ffffff;
+}
+
+.alt-sayfa-kutu {
+    background-color: #1c1c20;
+    border: 1px solid #2e3440;
+    border-radius: 6px;
+    padding: 40px;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    color: #cbd5e1;
+}
+
+.alt-sayfa-kutu h2 {
+    margin-top: 0;
+    color: #8899ac;
+    letter-spacing: 1px;
+}
+
+.panel-alt {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #141416;
+    border-top: 1px solid #2e3440;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: auto;
+}
+
+#kullaniciKarsilama {
+    font-size: 13px;
+    color: #8899ac;
+    letter-spacing: 1px;
+}
+
+.cikis-btn {
+    background-color: transparent;
+    color: #8899ac;
+    border: 1px solid #3a4556;
+    padding: 10px 30px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 0;
+    font-family: 'Cinzel', serif;
+}
+
+.cikis-btn:hover {
+    background-color: #222a35;
+    color: #f1f5f9;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-kutu {
+    background-color: #1c1c20;
+    border: 1px solid #2e3440;
+    border-radius: 6px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    color: #f1f5f9;
+    font-family: 'Cinzel', serif;
+    box-sizing: border-box;
+}
+
+.modal-kutu h3 {
+    margin-top: 0;
+    color: #8899ac;
+    border-bottom: 1px solid #2e3440;
+    padding-bottom: 10px;
+    letter-spacing: 1px;
+    font-size: 16px;
+    text-align: center;
+}
+
+#modalMetin {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 20px 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    background-color: #141416;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #2e3440;
+    color: #e2e8f0;
+    max-height: 250px;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.modal-bilgi {
+    font-size: 11px;
+    color: #8899ac;
+    font-style: italic;
+    text-align: right;
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nerd Sistem</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="panel-body">
+
+    <!-- Üst Menü ve Sekmeler -->
+    <div class="ust-menu">
+        <div class="site-baslik" id="sayfaBaslik">Panel</div>
+        <div class="sekme-linkleri">
+        <button class="sekme-btn aktif" onclick="sayfaDegistir('panel', this)">Panel</button>
+        <button class="sekme-btn" onclick="sayfaDegistir('denemeler', this)">Denemeler</button>
+        <button class="sekme-btn" onclick="sayfaDegistir('notlar', this)">Notlar</button>
+    </div>
+    </div>
+
+    <!-- SEKME 1: PANEL (Haftalık Görevler) -->
+    <div id="sayfa-panel" class="sayfa-icerik">
+        <div class="hafta-container">
+            <div class="hafta-grid" id="haftaGrid"></div>
+        </div>
+    </div>
+
+<!-- SEKME 2: DENEMELER -->
+<div id="sayfa-denemeler" class="sayfa-icerik" style="display: none;">
+    <div class="hafta-container">
+        <div class="alt-sayfa-kutu" style="max-width: 700px; width: 100%; text-align: left;">
+            <h2>Denemeler Takibi</h2>
+            
+            <!-- Deneme Ekleme Formu -->
+            <div class="gorev-ekle-form" style="margin-top: 20px; display: flex; flex-direction: column; gap: 12px;">
+                <input type="text" id="denemeAdiInput" placeholder="Deneme İsmi (Örn: Ölçme 1)">
+                
+                <select id="denemeTuruSelect" onchange="denemeTuruDegisti()" style="background-color: #141416; border: 1px solid #2e3440; color: #e2e8f0; border-radius: 4px; padding: 12px; font-family: 'Cinzel', serif; outline: none;">
+                    <option value="tyt">TYT</option>
+                    <option value="ydt">YDT</option>
+                </select>
+
+                <!-- TYT Ders Giriş Alanları -->
+                <div id="tytAlanlar" style="display: flex; flex-direction: column; gap: 10px;">
+                    <div style="font-size: 13px; color: #8899ac; font-weight: bold;">Türkçe (40 Soru)</div>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="tytTurkceD" placeholder="Doğru" min="0" max="40" style="flex:1;">
+                        <input type="number" id="tytTurkceY" placeholder="Yanlış" min="0" max="40" style="flex:1;">
+                    </div>
+
+                    <div style="font-size: 13px; color: #8899ac; font-weight: bold; margin-top: 5px;">Sosyal Bilimler (20 Soru)</div>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="tytSosyalD" placeholder="Doğru" min="0" max="20" style="flex:1;">
+                        <input type="number" id="tytSosyalY" placeholder="Yanlış" min="0" max="20" style="flex:1;">
+                    </div>
+
+                    <div style="font-size: 13px; color: #8899ac; font-weight: bold; margin-top: 5px;">Temel Matematik (40 Soru)</div>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="tytMatD" placeholder="Doğru" min="0" max="40" style="flex:1;">
+                        <input type="number" id="tytMatY" placeholder="Yanlış" min="0" max="40" style="flex:1;">
+                    </div>
+
+                    <div style="font-size: 13px; color: #8899ac; font-weight: bold; margin-top: 5px;">Fen Bilimleri (20 Soru)</div>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="tytFenD" placeholder="Doğru" min="0" max="20" style="flex:1;">
+                        <input type="number" id="tytFenY" placeholder="Yanlış" min="0" max="20" style="flex:1;">
+                    </div>
+                </div>
+
+                <!-- YDT Ders Giriş Alanları (Başlangıçta gizli) -->
+                <div id="ydtAlanlar" style="display: none; flex-direction: column; gap: 10px;">
+                    <div style="font-size: 13px; color: #8899ac; font-weight: bold;">Yabancı Dil (80 Soru)</div>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="ydtDilD" placeholder="Doğru" min="0" max="80" style="flex:1;">
+                        <input type="number" id="ydtDilY" placeholder="Yanlış" min="0" max="80" style="flex:1;">
+                    </div>
+                </div>
+
+                <button onclick="denemeEkle()" style="margin-top: 10px;">Denemeyi Kaydet ve Net Hesapla</button>
+            </div>
+
+            <div style="margin-top: 30px; border-top: 1px solid #2e3440; padding-top: 20px;">
+                <h3 style="color: #8899ac; font-size: 16px; margin-bottom: 15px;">Kaydedilen Denemeler</h3>
+                <ul class="gorev-listesi" id="denemelerListesi"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SEKME 3: NOTLAR -->
+    <div id="sayfa-notlar" class="sayfa-icerik" style="display: none;">
+        <div class="hafta-container">
+            <div class="alt-sayfa-kutu" style="max-width: 600px; width: 100%;">
+                <h2>Notlar</h2>
+                
+                <!-- Not Ekleme Formu -->
+                <div class="gorev-ekle-form" style="margin-top: 20px;">
+                    <input type="text" id="notInput" placeholder="Ortak not yaz...">
+                    <button onclick="notEkle()">Not Ekle</button>
+                </div>
+
+                <!-- Notların Listeleneceği Alan -->
+                <ul class="gorev-listesi" id="notlarListesi" style="margin-top: 20px;"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alt Bar -->
+    <div class="panel-alt">
+        <span id="kullaniciKarsilama">Giriş Yapan: Yükleniyor...</span>
+        <button class="cikis-btn" onclick="cikisYap()">Çıkış Yap</button>
+    </div>
+
+    <!-- Firebase SDK'ları -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="panel.js"></script>
+
+    <!-- Not Detay Pop-up (Modal) -->
+    <div id="notModal" class="modal-overlay" style="display: none;" onclick="disarTiklandiKapat(event)">
+        <div class="modal-kutu">
+            <h3>Not Detayı</h3>
+            <div id="modalMetin"></div>
+            <div id="modalBilgi" class="modal-bilgi"></div>
+            <button class="cikis-btn" onclick="notModalKapat()" style="margin-top: 20px; width: 100%;">Kapat</button>
+        </div>
+    </div>
+</body>
+</html>
