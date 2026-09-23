@@ -51,24 +51,97 @@
       </div>
     </label>
 
-    <div class="text-center">
+    <div class="text-center flex flex-col items-center">
       <span id="statusText" class="text-sm font-medium tracking-wide uppercase text-slate-400 transition-colors duration-200">
-        İşaretsiz (Tıkla)
+        Firebase Bağlanıyor...
+      </span>
+      <span id="syncBadge" class="text-xs text-slate-500 mt-2 font-mono transition-colors">
+        ● Firebase başlatılıyor
       </span>
     </div>
   </main>
 
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC3fqlnY7FW0pWHZeHeUnv5uokv9iZyWCw",
+      authDomain: "deneme-emaya.firebaseapp.com",
+      projectId: "deneme-emaya",
+      storageBucket: "deneme-emaya.firebasestorage.app",
+      messagingSenderId: "503994031405",
+      appId: "1:503994031405:web:8ac6b8ee25f90ec4be47a4",
+      measurementId: "G-VSEHJ2SW6Q"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
     const tickBox = document.getElementById('tickBox');
     const statusText = document.getElementById('statusText');
+    const syncBadge = document.getElementById('syncBadge');
 
-    tickBox.addEventListener('change', () => {
-      if (tickBox.checked) {
+    const docRef = doc(db, "settings", "checkboxState");
+
+    function updateUI(isChecked) {
+      tickBox.checked = isChecked;
+      if (isChecked) {
         statusText.textContent = 'İşaretlendi ✓';
         statusText.className = 'text-sm font-semibold tracking-wide uppercase text-emerald-400 transition-colors duration-200';
       } else {
         statusText.textContent = 'İşaretsiz (Tıkla)';
         statusText.className = 'text-sm font-medium tracking-wide uppercase text-slate-400 transition-colors duration-200';
+      }
+    }
+
+    // Başlangıçta kutuyu geçici olarak devre dışı bırakıp Firebase'i dinleyelim
+    tickBox.disabled = true;
+
+    // Gerçek zamanlı (Real-time) dinleme
+    onSnapshot(docRef, (docSnap) => {
+      tickBox.disabled = false;
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        updateUI(Boolean(data.checked));
+      } else {
+        updateUI(false);
+      }
+      if (syncBadge) {
+        syncBadge.textContent = '● Firebase Canlı Bağlı';
+        syncBadge.className = 'text-xs text-emerald-400 mt-2 font-mono';
+      }
+    }, (error) => {
+      console.error("Firebase Firestore Hatası:", error);
+      tickBox.disabled = false;
+      statusText.textContent = 'Firebase Bağlantı Hatası!';
+      statusText.className = 'text-sm font-semibold tracking-wide uppercase text-rose-400';
+      if (syncBadge) {
+        syncBadge.textContent = '● Firestore izin / kural hatası (' + (error.code || 'hata') + ')';
+        syncBadge.className = 'text-xs text-rose-400 mt-2 font-mono';
+      }
+    });
+
+    // Kullanıcı kutuya tıkladığında Firebase Firestore'a yazma
+    tickBox.addEventListener('change', async () => {
+      const isChecked = tickBox.checked;
+      updateUI(isChecked);
+      if (syncBadge) syncBadge.textContent = 'Kaydediliyor...';
+
+      try {
+        await setDoc(docRef, {
+          checked: isChecked,
+          updatedAt: new Date().toISOString()
+        }, { merge: true });
+        if (syncBadge) {
+          syncBadge.textContent = '● Firebase Canlı Bağlı';
+          syncBadge.className = 'text-xs text-emerald-400 mt-2 font-mono';
+        }
+      } catch (error) {
+        console.error("Firestore kaydetme hatası:", error);
+        alert("Firestore kaydetme hatası: " + error.message);
+        tickBox.checked = !isChecked;
+        updateUI(!isChecked);
       }
     });
   </script>
