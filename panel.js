@@ -15,4 +15,4 @@ const firebaseConfig =
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-
+window.location.href = "main.html";
