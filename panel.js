@@ -15,4 +15,18 @@ const firebaseConfig =
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-window.location.href = "main.html";
+const target = "./main.html";
+
+setTimeout(() => {
+  window.location.href = target;
+}, 1500);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const goMainButton = document.getElementById("goMain");
+
+  if (goMainButton) {
+    goMainButton.addEventListener("click", () => {
+      window.location.href = target;
+    });
+  }
+});
