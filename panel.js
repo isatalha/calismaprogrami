@@ -46,13 +46,13 @@ gridOlustur();
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDcEwjA0nKgN8soNjN2jytLdKX83xLzeas",
-    authDomain: "nerd-sistem.firebaseapp.com",
-    projectId: "nerd-sistem",
-    storageBucket: "nerd-sistem.firebasestorage.app",
-    messagingSenderId: "753232702809",
-    appId: "1:753232702809:web:9d28c8785c88c797fb7048",
-    measurementId: "G-547LGYQW08"
+    apiKey: "AIzaSyC3fqlnY7FW0pWHZeHeUnv5uokv9iZyWCw",
+  authDomain: "deneme-emaya.firebaseapp.com",
+  projectId: "deneme-emaya",
+  storageBucket: "deneme-emaya.firebasestorage.app",
+  messagingSenderId: "503994031405",
+  appId: "1:503994031405:web:8ac6b8ee25f90ec4be47a4",
+  measurementId: "G-VSEHJ2SW6Q"
 };
 
 
