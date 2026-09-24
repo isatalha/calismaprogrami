@@ -4,8 +4,8 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     const girilenIsim = document.getElementById('name').value.trim();
     const girilenSifre = document.getElementById('password').value.trim();
 
-    if ((girilenIsim === "Ateş" && girilenSifre === "61728394") || 
-        (girilenIsim === "Elektra" && girilenSifre === "Elektra4242")) {
+    if ((girilenIsim === "admin" && girilenSifre === "admin") || 
+        (girilenIsim === "user" && girilenSifre === "user")) {
         
         localStorage.setItem("aktifKullanici", girilenIsim);
         window.location.href = "panel.html";
