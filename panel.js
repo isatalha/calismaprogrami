@@ -252,6 +252,7 @@ function sayfaDegistir(sayfaAdi, tiklananButon) {
     document.getElementById("sayfa-panel").style.display = "none";
     document.getElementById("sayfa-denemeler").style.display = "none";
     document.getElementById("sayfa-notlar").style.display = "none";
+    document.getElementById("sayfa-kalp").style.display = "none";
 
     document.getElementById(`sayfa-${sayfaAdi}`).style.display = "flex";
 
