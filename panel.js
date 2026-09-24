@@ -1,5 +1,5 @@
 var aktifKullanici = localStorage.getItem("aktifKullanici") || "admin";
-var isAdmin = aktifKullanici === "admin"; //update check 
+var isAdmin = aktifKullanici === "isa"; //update check 
 
 const karsilamaEl = document.getElementById("kullaniciKarsilama");
 if (karsilamaEl) {
@@ -16,7 +16,6 @@ const gunler = [
     { id: "pazar", isim: "Pazar" }
 ];
 
-
 function gridOlustur() {
     const haftaGrid = document.getElementById("haftaGrid");
     if (!haftaGrid) return;
@@ -31,31 +30,29 @@ function gridOlustur() {
             <h3>${gun.isim}</h3>
             ${isAdmin ? `
                 <div class="gorev-ekle-form">
-                    <input type="text" id="input-${gun.id}" placeholder="Görev yaz...">
+                    <input type="text" id="input-${gun.id}" placeholder="Ders ekle...">
+                    <input type="text" id="link-${gun.id}" placeholder="Link Ekle...">
                     <button onclick="gorevEkle('${gun.id}')">Ekle</button>
                 </div>
             ` : ""}
-            <ul class="gorev-listesi" id="liste-${gun.id}"></ul>
+            <ul class="ders-listesi" id="liste-${gun.id}"></ul>
         `;
         haftaGrid.appendChild(gunKutusu);
     });
 }
 
-
 gridOlustur();
-
 
 const firebaseConfig = {
     apiKey: "AIzaSyC3fqlnY7FW0pWHZeHeUnv5uokv9iZyWCw",
-  authDomain: "deneme-emaya.firebaseapp.com",
-  projectId: "deneme-emaya",
-  storageBucket: "deneme-emaya.firebasestorage.app",
-  messagingSenderId: "503994031405",
-  appId: "1:503994031405:web:8ac6b8ee25f90ec4be47a4",
-  measurementId: "G-VSEHJ2SW6Q",
-  databaseURL: "https://deneme-emaya-default-rtdb.europe-west1.firebasedatabase.app/",
+    authDomain: "deneme-emaya.firebaseapp.com",
+    projectId: "deneme-emaya",
+    storageBucket: "deneme-emaya.firebasestorage.app",
+    messagingSenderId: "503994031405",
+    appId: "1:503994031405:web:8ac6b8ee25f90ec4be47a4",
+    measurementId: "G-VSEHJ2SW6Q",
+    databaseURL: "https://deneme-emaya-default-rtdb.europe-west1.firebasedatabase.app/",
 };
-
 
 let db = null;
 try {
@@ -77,10 +74,22 @@ try {
                 const gorev = gunGorevleri[id];
                 const li = document.createElement("li");
 
+                // Link kontrolü ve tıklanabilir etiket üretimi
+                let gorevIcerikHtml = "";
+                if (gorev.link && gorev.link.trim() !== "") {
+                    let url = gorev.link.trim();
+                    if (!/^https?:\/\//i.test(url)) {
+                        url = "https://" + url;
+                    }
+                    gorevIcerikHtml = `<a href="${url}" target="_blank" rel="noopener noreferrer" class="ders-linki">${gorev.metin}</a>`;
+                } else {
+                    gorevIcerikHtml = `<span>${gorev.metin}</span>`;
+                }
+
                 li.innerHTML = `
                     <div class="gorev-sol">
                         <input type="checkbox" ${gorev.tamamlandi ? "checked" : ""} onchange="durumDegistir('${gun.id}', '${id}', this.checked)">
-                        <span>${gorev.metin}</span>
+                        ${gorevIcerikHtml}
                     </div>
                     ${isAdmin ? `<button class="sil-btn" onclick="gorevSil('${gun.id}', '${id}')">Sil</button>` : ""}
                 `;
@@ -133,24 +142,33 @@ try {
     console.log("Firebase henüz yapılandırılmadı, arayüz yerel çalışıyor.");
 }
 
-
 function gorevEkle(gunId) {
     if (!isAdmin) return;
+    
     const input = document.getElementById(`input-${gunId}`);
+    const linkInput = document.getElementById(`link-${gunId}`);
+    
     if (!input) return;
     const metin = input.value.trim();
+    let link = linkInput ? linkInput.value.trim() : "";
 
     if (metin !== "") {
+        if (link !== "" && !/^https?:\/\//i.test(link)) {
+            link = "https://" + link;
+        }
+
         if (db) {
             db.ref(`gorevler/${gunId}`).push({
                 metin: metin,
+                link: link || null,
                 tamamlandi: false
             });
         }
+
         input.value = "";
+        if (linkInput) linkInput.value = "";
     }
 }
-
 
 function durumDegistir(gunId, gorevId, yeniDurum) {
     if (db) {
@@ -159,7 +177,6 @@ function durumDegistir(gunId, gorevId, yeniDurum) {
         });
     }
 }
-
 
 function gorevSil(gunId, gorevId) {
     if (!isAdmin) return;
@@ -293,13 +310,11 @@ function denemeEkle() {
         const fenD = parseFloat(document.getElementById("tytFenD").value) || 0;
         const fenY = parseFloat(document.getElementById("tytFenY").value) || 0;
 
-        // Negatif değer kontrolü
         if (trD < 0 || trY < 0 || sosD < 0 || sosY < 0 || matD < 0 || matY < 0 || fenD < 0 || fenY < 0) {
             alert("Doğru ve yanlış sayıları 0'dan küçük olamaz.");
             return;
         }
 
-        // Soru sayısı sınır kontrolleri
         if (trD + trY > 40) {
             alert(`Türkçe için doğru ve yanlış sayısı toplamı (${trD + trY}), soru sayısı olan 40'ı geçemez!`);
             return;
@@ -317,7 +332,6 @@ function denemeEkle() {
             return;
         }
 
-        // Net hesaplamaları (4 yanlış 1 doğruyu götürür formatında)
         const trNet = trD - (trY / 4);
         const sosNet = sosD - (sosY / 4);
         const matNet = matD - (matY / 4);
@@ -331,13 +345,11 @@ function denemeEkle() {
         const dilD = parseFloat(document.getElementById("ydtDilD").value) || 0;
         const dilY = parseFloat(document.getElementById("ydtDilY").value) || 0;
 
-        // Negatif değer kontrolü
         if (dilD < 0 || dilY < 0) {
             alert("Doğru ve yanlış sayıları 0'dan küçük olamaz.");
             return;
         }
 
-        // Soru sayısı sınır kontrolü
         if (dilD + dilY > 80) {
             alert(`Yabancı Dil için doğru ve yanlış sayısı toplamı (${dilD + dilY}), soru sayısı olan 80'i geçemez!`);
             return;
@@ -352,12 +364,11 @@ function denemeEkle() {
     if (db) {
         db.ref("denemeler").push(denemeVerisi);
         isimInput.value = "";
-        // Inputları temizle
         document.querySelectorAll("#sayfa-denemeler input[type='number']").forEach(inp => inp.value = "");
     }
 }
 
-// Firebase'den Denemeleri Dinleme ve Listeleme (Panel.js içerisindeki Firebase dinleyicilerine eklenecek)
+// Firebase'den Denemeleri Dinleme ve Listeleme
 if (db) {
     db.ref("denemeler").on("value", (snapshot) => {
         const tumDenemeler = snapshot.val() || {};
