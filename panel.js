@@ -1,5 +1,5 @@
-const aktifKullanici = localStorage.getItem("aktifKullanici") || "Ateş";
-const isAdmin = aktifKullanici === "Ateş";
+const aktifKullanici = localStorage.getItem("aktifKullanici") || "admin";
+const isAdmin = aktifKullanici === "admin";
 
 const karsilamaEl = document.getElementById("kullaniciKarsilama");
 if (karsilamaEl) {
