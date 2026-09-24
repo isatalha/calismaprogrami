@@ -52,7 +52,8 @@ const firebaseConfig = {
   storageBucket: "deneme-emaya.firebasestorage.app",
   messagingSenderId: "503994031405",
   appId: "1:503994031405:web:8ac6b8ee25f90ec4be47a4",
-  measurementId: "G-VSEHJ2SW6Q"
+  measurementId: "G-VSEHJ2SW6Q",
+  databaseURL: "https://deneme-emaya-default-rtdb.europe-west1.firebasedatabase.app/",
 };
 
 
